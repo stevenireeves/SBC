@@ -10,6 +10,7 @@ OUTPATH='/home/steven/SBC/Snow/'
   
 
 data = os.listdir(PATH)
+data = sorted(data)
 avg_5_depth        = {}
 avg_5_swe          = {}
 avg_5_dens         = {}
@@ -23,9 +24,9 @@ for i in range(len(data)):
   print('Processing File ', data[i])
   df = pd.read_csv(PATH+data[i])
   name = data[i][:-4].replace('_',' ')
-  avg_total_depth[name]    = df['Snow Depth (in)'].mean()
-  avg_total_swe[name]      = df['Snow Water Equivalent (in)'].mean()
-  avg_total_dens[name]     = df['Snow Density (pct)'].mean()
+  avg_total_depth[name]    = df[df['Water Year'] >= 2018]['Snow Depth (in)'].mean()
+  avg_total_swe[name]      = df[df['Water Year'] >= 2018]['Snow Water Equivalent (in)'].mean()
+  avg_total_dens[name]     = df[df['Water Year'] >= 2018]['Snow Density (pct)'].mean()
   avg_5_depth[name]        = df[(2013 <= df['Water Year']) & (df['Water Year'] >= 2018)]['Snow Depth (in)'].mean()
   avg_5_swe[name]          = df[(2013 <= df['Water Year']) & (df['Water Year'] >= 2018)]['Snow Water Equivalent (in)'].mean()
   avg_5_dens[name]         = df[(2013 <= df['Water Year']) & (df['Water Year'] >= 2018)]['Snow Density (pct)'].mean()
