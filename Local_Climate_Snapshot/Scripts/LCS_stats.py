@@ -4,7 +4,7 @@ import pandas as pd
 DATA = '../Data/'
 def perc_chg(df):
   chg = float(df.iloc[3]['change'])
-  base = df.iloc[3]['average']-chg
+  base = df.iloc[0]['average']
   #calculates ratio change, multiply by 100 to get percentage
   return ((base+chg)/(base)-1)*100
 
@@ -21,19 +21,19 @@ for i in range(len(direc)):
 percentage = {}
 #creates a dictionary for the raw change
 raw = {}
-#creates a diction for the projected raw
-projected = {}
+#creates a dictionary for the modeled baseline
+baseline = {}
 
 #use one loop for performance
 for file in direc:
   df = dataframes[file]
   percentage[file] = perc_chg(df)
   raw[file] = df.iloc[3]['change']
-  projected[file] = df.iloc[3]['average']
+  baseline[file] = df.iloc[0]['average']
 
-final_df = pd.DataFrame(percentage, index=[0])
-final_df = final_df.append(raw, ignore_index=True)
-final_df = final_df.append(projected, ignore_index=True)
-final_df.index = ['%Change', 'Change', 'Projected Avg']
+final_df = pd.DataFrame(raw, index=[0])
+final_df = final_df.append(baseline, ignore_index=True)
+final_df = final_df.append(percentage, ignore_index=True)
+final_df.index = ['Change', 'Baseline', '%Change']
 final_df.to_csv('../Combined_Val.csv')
 
