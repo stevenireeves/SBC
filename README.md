@@ -1,3 +1,3 @@
 # Sierra Vulnerability Project Data Crunching Codes
-In this repository are codes to calculate various statistics for the Sierra Business Council's Vulnerability Assessment Project.
+In this repository are codes to calculate various statistics for Erika's Vulnerability Assessment Project.
 
